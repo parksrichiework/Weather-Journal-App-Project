@@ -36,7 +36,11 @@ body{
 
 
 #entryHolder{
-
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    color: var(--off-white);
+    font-size: 2em;
 }
 
 #date{
@@ -92,6 +96,7 @@ button{
     border: none;
     box-shadow: 2px 4px 5px var(--polynessian-blue);
 }
+
 h1{
     font-size: 36px;
 }
