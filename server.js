@@ -53,8 +53,11 @@ app.post('/addData', addData)
 
 function addData (req, res){
     console.log(req.body)
-    projectData = req.body
+    projectData = {
+        temperature: req.body.temperature,
+        date: req.body.date,
+        userRespoonse: req.body.userResponse,
+    }
     res.send(projectData)
 }
 
-console.log(data)
