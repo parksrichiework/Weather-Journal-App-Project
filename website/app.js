@@ -1,11 +1,11 @@
 // Global Variables 
 let userTemperature = document.querySelector('#temp')
 let userDate = document.querySelector('#date')
-let userFeelings = document.querySelector('#feelings').value
-let userZip = document.querySelector('#zip').value
+let userFeelings = document.querySelector('#feelings')
+let userZip = document.querySelector('#zip')
 
-let apiKey = '7b0c9254718fc6533eca396f3f37052c'
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?q='
+let apiKey = '&appid=7b0c9254718fc6533eca396f3f37052c'
+let baseURL = 'https://api.openweathermap.org/data/2.5/weather?'
 
 
 // Create a new date instance dynamically with JS
@@ -15,7 +15,7 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 //add asynch function to make GET request to OpenWeatherMap
 
 const getData = async (baseURL,userZip,apiKey)=>{
-      const request = await fetch(`${baseURL}${userZip}${apiKey}`);
+      const request = await fetch(`${baseURL}zip=${userZip.value},us${apiKey}`);
 
       try {
         const newData = await request.json();
@@ -33,12 +33,12 @@ document.querySelector('#generate').addEventListener('click', generate)
 function generate(){
     console.log('Generate button clicked')
     getData(baseURL,userZip,apiKey)
-      .then(function (data){
-          console.log(data)
+      .then(function (weatherData){
+          console.log(weatherData)
           postData('/addData', {
-              temperature: data.main.temp,
+              temperature: weatherData.main.temp,
               date: newDate,
-              userResponse: userFeelings,
+              userResponse: userFeelings.value,
           })
           
         })
@@ -71,14 +71,14 @@ const postData = async ( url = '', data = {})=>{
 const updateUi = async () => {
   const req = await fetch('/all')
   try{
-      const data = await request.json()
-      document.getElementById('date').innerHTML = `Date: ${data.date}`
-      document.getElementById('temp').innerHTML = `Temperature(C): ${data.temperature}`
+      const data = await req.json()
+      userDate.innerHTML = `Date: ${data.date}`
+      userTemperature.innerHTML = `Temperature(°C): ${data.temperature}`
       document.getElementById('content').innerHTML = `Feelings: ${data.userResponse}`
-  } catch(err) {
+    } catch(err) {
     console.log("ERROR", err)
   }
-  console.log(data)
+  console.log(req)
 }
 
  
