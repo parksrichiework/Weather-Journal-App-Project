@@ -40,11 +40,21 @@ function listening(err){
 
 //GET route that returns project data
 // '/' = root or "home"
-app.get('/', function(req,res){
+app.get('/all', function(req,res){
     res.send(projectData)
 })
 
 //POST route that adds incoming data to project data
-app.post('/', function(req,res){
-    res.send({"temperature": '', "date": '', "userResponse": ''})
-})
+
+//declare variable to store user data
+const data =[]
+
+app.post('/addData', addData)
+
+function addData (req, res){
+    console.log(req.body)
+    projectData = req.body
+    res.send(projectData)
+}
+
+console.log(data)
