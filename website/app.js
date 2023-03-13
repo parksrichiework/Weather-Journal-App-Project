@@ -78,6 +78,7 @@ const updateUi = async () => {
   } catch(err) {
     console.log("ERROR", err)
   }
+  console.log(data)
 }
 
  
